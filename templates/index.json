@@ -6,280 +6,351 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
+    "highstare_floating_hero": {
+      "type": "highstare-floating-hero",
       "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
+        "hero_1": {
+          "type": "slide",
           "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "text_color": "{{ settings.color_palette.background }}",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "fallback_asset": "product-solo-leveling.png",
+            "eyebrow": "New drop",
+            "title": "Solo Leveling Tee",
+            "subtitle": "Arise. Command. Conquer. Premium oversized fit.",
+            "button_label": "Shop now",
+            "link": "shopify://collections/all"
+          }
         },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
+        "hero_2": {
+          "type": "slide",
           "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-custom",
-            "custom_button_background": "rgba(0,0,0,0)",
-            "custom_button_text": "{{ settings.color_palette.background }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
+            "fallback_asset": "product-sukuna-front.png",
+            "eyebrow": "Best seller",
+            "title": "Sukuna Tee",
+            "subtitle": "Bold anime graphic on premium waffle-knit fabric.",
+            "button_label": "Shop now",
+            "link": "shopify://collections/all"
+          }
+        },
+        "hero_3": {
+          "type": "slide",
+          "settings": {
+            "fallback_asset": "product-humble.png",
+            "eyebrow": "Music culture",
+            "title": "Humble Tee",
+            "subtitle": "Vintage bootleg style. Limited edition streetwear.",
+            "button_label": "Shop now",
+            "link": "shopify://collections/all"
+          }
+        },
+        "hero_4": {
+          "type": "slide",
+          "settings": {
+            "fallback_asset": "product-itachi.png",
+            "eyebrow": "Anime drop",
+            "title": "Itachi Tee",
+            "subtitle": "Dark aesthetic. High-quality print that lasts.",
+            "button_label": "Shop now",
+            "link": "shopify://collections/all"
+          }
+        },
+        "hero_5": {
+          "type": "slide",
+          "settings": {
+            "fallback_asset": "product-guts.png",
+            "eyebrow": "Limited",
+            "title": "Guts Tee",
+            "subtitle": "Kill or be killed. Berserk-inspired graphic tee.",
+            "button_label": "Shop now",
+            "link": "shopify://collections/all"
+          }
         }
       },
       "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
+        "hero_1",
+        "hero_2",
+        "hero_3",
+        "hero_4",
+        "hero_5"
       ],
-      "name": "t:names.hero",
       "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "background_color": "rgba(0,0,0,0)",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
+        "background_color": "#ffffff",
+        "autoplay_speed": 5,
+        "accessibility_label": "Featured collection slideshow"
       }
     },
-    "product_list_fa6P9H": {
-      "type": "product-list",
+    "highstare_trust_bar": {
+      "type": "highstare-trust-bar",
       "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
+        "trust_1": {
+          "type": "trust_item",
           "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "View all",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
+            "icon": "shield",
+            "label": "Protect your order",
+            "modal_text": "Record a quick unboxing video upon delivery. It helps ensure a smooth and fair resolution in rare cases."
+          }
         },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
+        "trust_2": {
+          "type": "trust_item",
           "settings": {
-            "product_card_gap": 4,
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
+            "icon": "return",
+            "label": "Easy exchange & return",
+            "modal_text": "Enjoy easy returns or exchanges within 3 days of delivery. Reach out on WhatsApp and our team will assist you within 24–48 hours."
+          }
+        },
+        "trust_3": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "users",
+            "label": "Trusted customers",
+            "modal_text": "Trusted by a growing community for premium fabrics, precise detailing, and a refined streetwear identity."
+          }
         }
       },
-      "name": "Featured collection",
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3"
+      ],
+      "settings": {}
+    },
+    "showcase_new_arrivals": {
+      "type": "highstare-product-showcase",
+      "blocks": {
+        "p1": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-itachi.png",
+            "title": "Itachi Tee",
+            "price": "Rs. 1,699",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        },
+        "p2": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-guts.png",
+            "title": "Guts Tee",
+            "price": "Rs. 1,699",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        },
+        "p3": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-eren-freedom.png",
+            "title": "Freedom Tee",
+            "price": "Rs. 1,749",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        },
+        "p4": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-flashin-lights-front.png",
+            "title": "Flashin Lights Tee",
+            "price": "Rs. 1,699",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
       "settings": {
-        "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "title": "New arrivals",
+        "view_all_label": "View all",
+        "view_all_link": "shopify://collections/all",
+        "columns": 4
+      }
+    },
+    "showcase_anime": {
+      "type": "highstare-product-showcase",
+      "blocks": {
+        "a1": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-sukuna-alt.png",
+            "title": "Sukuna Collage Tee",
+            "price": "Rs. 1,749",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        },
+        "a2": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-mayhem-back.png",
+            "title": "Mayhem Tee",
+            "price": "Rs. 1,699",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        },
+        "a3": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-sukuna-back.png",
+            "title": "Sukuna Back Print",
+            "price": "Rs. 1,699",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        },
+        "a4": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-solo-leveling.png",
+            "title": "Arise Command Conquer",
+            "price": "Rs. 1,799",
+            "compare_price": "Rs. 2,499",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "a1",
+        "a2",
+        "a3",
+        "a4"
+      ],
+      "settings": {
+        "title": "Anime drops",
+        "view_all_label": "View all",
+        "view_all_link": "shopify://collections/all",
+        "columns": 4
+      }
+    },
+    "showcase_music": {
+      "type": "highstare-product-showcase",
+      "blocks": {
+        "m1": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-donda-back.png",
+            "title": "Donda Tee",
+            "price": "Rs. 1,699",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        },
+        "m2": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-kendrick-back.png",
+            "title": "Humble Kendrick Tee",
+            "price": "Rs. 1,749",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        },
+        "m3": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-weeknd-back.png",
+            "title": "The Weeknd Tour Tee",
+            "price": "Rs. 1,699",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        },
+        "m4": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-earfquake-front.png",
+            "title": "Earfquake Front Tee",
+            "price": "Rs. 1,699",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4"
+      ],
+      "settings": {
+        "title": "Music culture",
+        "view_all_label": "View all",
+        "view_all_link": "shopify://collections/all",
+        "columns": 4
+      }
+    },
+    "showcase_hottest": {
+      "type": "highstare-product-showcase",
+      "blocks": {
+        "h1": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-flashin-lights-back.png",
+            "title": "Flashin Lights Back",
+            "price": "Rs. 1,699",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        },
+        "h2": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-kendrick-house-back.png",
+            "title": "TDE Crew Tee",
+            "price": "Rs. 1,749",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        },
+        "h3": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-french-quote-back.png",
+            "title": "Sonder Quote Tee",
+            "price": "Rs. 1,699",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        },
+        "h4": {
+          "type": "product",
+          "settings": {
+            "fallback_asset": "product-flashin-lights-alt.png",
+            "title": "Graduation Era Tee",
+            "price": "Rs. 1,699",
+            "compare_price": "Rs. 2,399",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "h1",
+        "h2",
+        "h3",
+        "h4"
+      ],
+      "settings": {
+        "title": "Hottest picks",
+        "view_all_label": "View all",
+        "view_all_link": "shopify://collections/all",
+        "columns": 4
       }
     }
   },
   "order": [
-    "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "highstare_floating_hero",
+    "highstare_trust_bar",
+    "showcase_new_arrivals",
+    "showcase_anime",
+    "showcase_music",
+    "showcase_hottest"
   ]
 }

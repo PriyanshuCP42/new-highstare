@@ -1,0 +1,143 @@
+{{ 'highstare-home.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="highstare-showcase section"
+  style="--hs-columns: {{ section.settings.columns }};"
+>
+  <div class="highstare-showcase__inner">
+    <div class="highstare-showcase__header">
+      <h2 class="highstare-showcase__title">{{ section.settings.title }}</h2>
+      {% if section.settings.view_all_link != blank %}
+        <a class="highstare-showcase__view-all" href="{{ section.settings.view_all_link }}">
+          {{ section.settings.view_all_label }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="highstare-showcase__grid">
+      {% for block in section.blocks %}
+        {% liquid
+          assign image_src = blank
+          assign image = block.settings.image
+          if image == blank and block.settings.fallback_asset != blank
+            assign image_src = block.settings.fallback_asset | asset_url
+            assign image_alt = block.settings.title
+          elsif image != blank
+            assign image_src = image | image_url: width: 800
+            assign image_alt = image.alt | default: block.settings.title
+          endif
+        %}
+
+        {% if image_src != blank %}
+          <a
+            class="highstare-showcase__card"
+            href="{{ block.settings.link | default: section.settings.view_all_link | default: routes.all_products_collection_url }}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="highstare-showcase__media-wrap">
+              <img
+                class="highstare-showcase__media"
+                src="{{ image_src }}"
+                alt="{{ image_alt | escape }}"
+                loading="lazy"
+                width="800"
+                height="1000"
+              >
+            </div>
+            <p class="highstare-showcase__name">{{ block.settings.title }}</p>
+            <p class="highstare-showcase__price">
+              {% if block.settings.compare_price != blank %}
+                <span class="highstare-showcase__price-compare">{{ block.settings.compare_price }}</span>
+              {% endif %}
+              <span class="highstare-showcase__price-sale">{{ block.settings.price }}</span>
+            </p>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HIGHSTARE Product Grid",
+  "tag": "section",
+  "class": "highstare-showcase-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "New arrivals"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "View all label",
+      "default": "View all"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View all link"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns on desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "fallback_asset",
+          "label": "Fallback asset filename",
+          "default": "product-solo-leveling.png"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Product title",
+          "default": "Product name"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "Rs. 1,699"
+        },
+        {
+          "type": "text",
+          "id": "compare_price",
+          "label": "Compare at price",
+          "default": "Rs. 2,399"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Product link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HIGHSTARE Product Grid"
+    }
+  ]
+}
+{% endschema %}

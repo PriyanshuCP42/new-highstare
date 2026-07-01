@@ -55,14 +55,25 @@
     class="header-logo__image-container header-logo__image-container--original"
     data-testid="header-logo"
   >
-    {% render 'image',
-      image: settings.logo,
-      class: 'header-logo__image',
-      height: settings.logo_height,
-      alt_text_fallback: alt_text_fallback,
-      text_fallback: shop.name,
-      style: logo_style
-    %}
+    {% if settings.logo != blank %}
+      {% render 'image',
+        image: settings.logo,
+        class: 'header-logo__image',
+        height: settings.logo_height,
+        alt_text_fallback: alt_text_fallback,
+        text_fallback: shop.name,
+        style: logo_style
+      %}
+    {% else %}
+      <img
+        src="{{ 'official-logo.png' | asset_url }}"
+        class="header-logo__image highstare-official-logo"
+        alt="{{ alt_text_fallback | escape }}"
+        width="200"
+        height="28"
+        style="height: {{ settings.logo_height_mobile }}px; width: auto; max-width: min(200px, 42vw); object-fit: contain;"
+      >
+    {% endif %}
   </span>
 
   {% if use_inverse_logo %}

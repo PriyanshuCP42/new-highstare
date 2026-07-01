@@ -1,0 +1,456 @@
+<script src="{{ 'highstare-hero.js' | asset_url }}" defer></script>
+
+<section
+  class="hs-hero section"
+  style="--hs-hero-bg: {{ section.settings.background_color }};"
+  aria-label="{{ section.settings.accessibility_label | escape }}"
+>
+  <highstare-hero-slideshow
+    class="hs-hero__slideshow"
+    data-autoplay="{{ section.settings.autoplay_speed | times: 1000 }}"
+  >
+    <div class="hs-hero__viewport">
+      {% for block in section.blocks %}
+        {% liquid
+          assign image_src = blank
+          assign image = block.settings.image
+          if image == blank and block.settings.fallback_asset != blank
+            assign image_src = block.settings.fallback_asset | asset_url
+            assign image_alt = block.settings.title
+          elsif image != blank
+            assign image_src = image | image_url: width: 1200
+            assign image_alt = image.alt | default: block.settings.title
+          endif
+        %}
+
+        {% if image_src != blank %}
+          <article
+            class="hs-hero__slide{% if forloop.first %} is-active{% endif %}"
+            data-slide
+            aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="hs-hero__slide-inner">
+              <div class="hs-hero__media">
+                {% if block.settings.link != blank %}
+                  <a href="{{ block.settings.link }}" class="hs-hero__media-link" tabindex="-1" aria-hidden="true">
+                {% endif %}
+                <img
+                  class="hs-hero__image"
+                  src="{{ image_src }}"
+                  alt="{{ image_alt | escape }}"
+                  loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                  width="1200"
+                  height="1400"
+                >
+                {% if block.settings.link != blank %}
+                  </a>
+                {% endif %}
+              </div>
+
+              <div class="hs-hero__content">
+                {% if block.settings.eyebrow != blank %}
+                  <p class="hs-hero__eyebrow">{{ block.settings.eyebrow }}</p>
+                {% endif %}
+                {% if block.settings.title != blank %}
+                  <h2 class="hs-hero__title">{{ block.settings.title }}</h2>
+                {% endif %}
+                {% if block.settings.subtitle != blank %}
+                  <p class="hs-hero__subtitle">{{ block.settings.subtitle }}</p>
+                {% endif %}
+                {% if block.settings.link != blank and block.settings.button_label != blank %}
+                  <a class="hs-hero__cta" href="{{ block.settings.link }}">
+                    {{ block.settings.button_label }}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if section.blocks.size > 1 %}
+      <div class="hs-hero__controls">
+        <button
+          type="button"
+          class="hs-hero__arrow hs-hero__arrow--prev"
+          data-prev
+          aria-label="Previous slide"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+
+        <div class="hs-hero__dots" role="tablist" aria-label="Slide navigation">
+          {% for block in section.blocks %}
+            <button
+              type="button"
+              class="hs-hero__dot{% if forloop.first %} is-active{% endif %}"
+              data-dot
+              role="tab"
+              aria-label="Slide {{ forloop.index }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            ></button>
+          {% endfor %}
+        </div>
+
+        <button
+          type="button"
+          class="hs-hero__arrow hs-hero__arrow--next"
+          data-next
+          aria-label="Next slide"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    {% endif %}
+  </highstare-hero-slideshow>
+</section>
+
+{% stylesheet %}
+  .hs-hero {
+    background: var(--hs-hero-bg, #fff);
+    overflow: hidden;
+  }
+
+  .hs-hero__slideshow {
+    display: block;
+    width: 100%;
+  }
+
+  .hs-hero__viewport {
+    position: relative;
+    min-height: clamp(480px, 78vh, 820px);
+  }
+
+  .hs-hero__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(24px, 4vw, 48px) clamp(16px, 4vw, 40px) clamp(72px, 8vh, 96px);
+  }
+
+  .hs-hero__slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+  }
+
+  .hs-hero__slide-inner {
+    width: min(1100px, 100%);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(20px, 3vh, 36px);
+    text-align: center;
+    justify-items: center;
+  }
+
+  .hs-hero__media {
+    width: 100%;
+    max-width: 520px;
+    animation: hs-hero-float 5s ease-in-out infinite;
+  }
+
+  .hs-hero__slide.is-active .hs-hero__media {
+    animation-play-state: running;
+  }
+
+  .hs-hero__slide:not(.is-active) .hs-hero__media {
+    animation-play-state: paused;
+  }
+
+  @keyframes hs-hero-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .hs-hero__media-link {
+    display: block;
+    text-decoration: none;
+  }
+
+  .hs-hero__image {
+    width: 100%;
+    height: auto;
+    max-height: clamp(320px, 58vh, 580px);
+    object-fit: contain;
+    object-position: center bottom;
+    display: block;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.07));
+  }
+
+  .hs-hero__content {
+    max-width: 480px;
+  }
+
+  .hs-hero__eyebrow {
+    margin: 0 0 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .hs-hero__title {
+    margin: 0 0 8px;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.15;
+  }
+
+  .hs-hero__subtitle {
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.55);
+  }
+
+  .hs-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 160px;
+    padding: 14px 32px;
+    background: #000;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .hs-hero__cta:hover,
+  .hs-hero__cta:focus-visible {
+    background: #222;
+    transform: translateY(-1px);
+  }
+
+  .hs-hero__controls {
+    position: absolute;
+    bottom: clamp(20px, 4vh, 36px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .hs-hero__slideshow {
+    position: relative;
+  }
+
+  .hs-hero__arrow {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .hs-hero__arrow svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: #000;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .hs-hero__arrow:hover,
+  .hs-hero__arrow:focus-visible {
+    border-color: #000;
+    background: #ffffff;
+  }
+
+  .hs-hero__dots {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hs-hero__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+
+  .hs-hero__dot.is-active {
+    background: #000;
+    transform: scale(1.15);
+  }
+
+  @media (max-width: 749px) {
+    .hs-hero__viewport {
+      min-height: clamp(420px, 70vh, 640px);
+    }
+
+    .hs-hero__arrow {
+      display: none;
+    }
+
+    .hs-hero__image {
+      max-height: clamp(260px, 48vh, 420px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hs-hero__slide {
+      transition: none;
+    }
+
+    .hs-hero__media {
+      animation: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "HIGHSTARE Hero Slideshow",
+  "tag": "section",
+  "class": "highstare-hero-section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed (seconds)",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Accessibility label",
+      "default": "Featured collection slideshow"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "fallback_asset",
+          "label": "Fallback asset filename",
+          "info": "Used when no image is selected",
+          "default": "product-solo-leveling.png"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow text",
+          "default": "New drop"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Featured tee"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Premium oversized fit · Limited edition"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HIGHSTARE Hero Slideshow",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "fallback_asset": "product-solo-leveling.png",
+            "eyebrow": "New drop",
+            "title": "Solo Leveling Tee",
+            "subtitle": "Arise. Command. Conquer.",
+            "button_label": "Shop now"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "fallback_asset": "product-sukuna-front.png",
+            "eyebrow": "Best seller",
+            "title": "Sukuna Tee",
+            "subtitle": "Throughout heaven and earth, I alone am the honored one.",
+            "button_label": "Shop now"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "fallback_asset": "product-humble.png",
+            "eyebrow": "Music culture",
+            "title": "Humble Tee",
+            "subtitle": "Streetwear inspired by hip-hop culture.",
+            "button_label": "Shop now"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "fallback_asset": "product-itachi.png",
+            "eyebrow": "Anime drop",
+            "title": "Itachi Tee",
+            "subtitle": "Those who cannot acknowledge themselves will eventually fail.",
+            "button_label": "Shop now"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
