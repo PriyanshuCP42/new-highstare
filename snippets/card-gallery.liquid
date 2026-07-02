@@ -172,17 +172,7 @@
         attributes: slideshow_attributes
       %}
     </a>
-  {% elsif product != blank and product.media.size == 0 %}
-    <div class="product-card-gallery__title-placeholder">
-      <a
-        class="contents"
-        ref="cardGalleryLink"
-        href="{{ product.selected_or_first_available_variant.url }}"
-      >
-        <span class="title-text">{{- product.title -}}</span>
-      </a>
-    </div>
-  {% elsif product == blank %}
+  {% elsif product == blank or product.media.size == 0 %}
     {% liquid
       capture placeholder_image
         # Extract index from block ID (e.g., "product-card-3" -> "3")
@@ -192,11 +182,18 @@
         assign placeholder_name = 'product-apparel-' | append: variant
         echo placeholder_name | placeholder_svg_tag
       endcapture
-      capture placeholder_slide
-        render 'slideshow-slide', index: 1, children: placeholder_image, class: 'product-media-container card-gallery__placeholder'
-      endcapture
-      render 'slideshow', ref: 'slideshow', slides: placeholder_slide, slide_count: 1, attributes: 'disabled="true"'
+      
+      assign placeholder_href = '#'
+      if product != blank
+        assign placeholder_href = product.selected_or_first_available_variant.url
+      endif
     %}
+    <a href="{{ placeholder_href }}" class="contents">
+      {% capture placeholder_slide %}
+        {% render 'slideshow-slide', index: 1, children: placeholder_image, class: 'product-media-container card-gallery__placeholder' %}
+      {% endcapture %}
+      {% render 'slideshow', ref: 'slideshow', slides: placeholder_slide, slide_count: 1, attributes: 'disabled="true"' %}
+    </a>
   {%- endif -%}
   {{ children }}
 </div>

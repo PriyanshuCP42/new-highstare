@@ -30,9 +30,15 @@
   </div>
 
   {% capture list_items %}
-    {% if section.settings.collection != blank and shop.products_count != 0 %}
-      {% paginate section.settings.collection.products by max_items %}
-        {% for product in section.settings.collection.products limit: max_items %}
+    {% liquid
+      assign target_collection = section.settings.collection
+      if target_collection == blank and shop.products_count != 0
+        assign target_collection = collections['all']
+      endif
+    %}
+    {% if target_collection != blank and target_collection.products_count > 0 %}
+      {% paginate target_collection.products by max_items %}
+        {% for product in target_collection.products limit: max_items %}
         <div
           class="resource-list__item"
         >
@@ -99,6 +105,12 @@
     },
     {
       "type": "_divider"
+    },
+    {
+      "type": "_product-list-content"
+    },
+    {
+      "type": "_product-card"
     }
   ],
   "disabled_on": {

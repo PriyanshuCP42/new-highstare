@@ -18,7 +18,7 @@
               class="hs-header__nav-link{% if link.current %} is-active{% endif %}"
               {% if link.current %}aria-current="page"{% endif %}
             >
-              {{ link.title }}
+              {% if link.title == 'Catalog' %}Products{% else %}{{ link.title }}{% endif %}
             </a>
           {% endfor %}
         </nav>
@@ -26,7 +26,7 @@
 
       <a href="{{ routes.root_url }}" class="hs-header__logo" aria-label="{{ shop.name }}">
         {% if settings.logo != blank %}
-          {{ settings.logo | image_url: width: 400 | image_tag: class: 'hs-header__logo-img', alt: shop.name, loading: 'eager' }}
+          {{ settings.logo | image_url: width: 400 | image_tag: class: 'hs-header__logo-img', alt: shop.name, loading: 'eager', fetchpriority: 'high' }}
         {% else %}
           <img
             src="{{ 'Asset 34.png' | asset_url }}"
@@ -35,6 +35,7 @@
             width="160"
             height="22"
             loading="eager"
+            fetchpriority="high"
           >
         {% endif %}
       </a>
@@ -49,7 +50,7 @@
   <div class="hs-header__mobile-nav" data-hs-mobile-nav hidden>
     <nav class="hs-header__mobile-links" aria-label="Mobile navigation">
       {% for link in section.settings.menu.links %}
-        <a href="{{ link.url }}" class="hs-header__mobile-link">{{ link.title }}</a>
+        <a href="{{ link.url }}" class="hs-header__mobile-link">{% if link.title == 'Catalog' %}Products{% else %}{{ link.title }}{% endif %}</a>
       {% endfor %}
     </nav>
   </div>

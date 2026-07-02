@@ -95,8 +95,46 @@
     },
     "featured_products": {
       "type": "product-list",
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "static": true,
+          "blocks": {
+            "title": {
+              "type": "_product-list-text",
+              "settings": {
+                "text": "<p>New Arrivals</p>",
+                "type_preset": "h3",
+                "alignment": "center"
+              }
+            }
+          },
+          "block_order": ["title"]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "static": true,
+          "blocks": {
+            "img": { "type": "_product-card-gallery" },
+            "title": { 
+              "type": "product-title",
+              "settings": {
+                "alignment": "center"
+              }
+            },
+            "price": { 
+              "type": "price",
+              "settings": {
+                "alignment": "center"
+              }
+            }
+          },
+          "block_order": ["img", "title", "price"]
+        }
+      },
+      "block_order": [],
       "settings": {
-        "collection": "all",
+        "collection": "",
         "columns": 4,
         "mobile_columns": "2"
       }
