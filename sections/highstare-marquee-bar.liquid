@@ -1,102 +1,34 @@
-<section
-  class="hs-marquee-bar section"
-  style="--hs-marquee-bg: {{ section.settings.background_color }}; --hs-marquee-color: {{ section.settings.text_color }};"
+<div
+  class="hs-marquee-bar"
+  style="--hs-marquee-bg: {{ section.settings.background_color }}; --hs-marquee-color: {{ section.settings.text_color }}; --hs-marquee-speed: {{ section.settings.speed }}s;"
   aria-label="Store announcements"
 >
-  <div class="hs-marquee-bar__viewport">
-    <div class="hs-marquee-bar__track" style="--hs-marquee-speed: {{ section.settings.speed }}s;">
-      {% for i in (1..4) %}
-        <div class="hs-marquee-bar__group" {% unless forloop.first %}aria-hidden="true"{% endunless %}>
-          {% for block in section.blocks %}
-            <span class="hs-marquee-bar__item"{% if forloop.parentloop.first %}{{ block.shopify_attributes }}{% endif %}>
-              {% if block.settings.link != blank %}
-                <a href="{{ block.settings.link }}" class="hs-marquee-bar__link">{{ block.settings.text }}</a>
-              {% else %}
-                {{ block.settings.text }}
-              {% endif %}
-            </span>
-            <span class="hs-marquee-bar__sep" aria-hidden="true">·</span>
-          {% endfor %}
-        </div>
+  <div class="hs-marquee-bar__track">
+    {% capture marquee_content %}
+      {% for block in section.blocks %}
+        <span class="hs-marquee-bar__item" {{ block.shopify_attributes }}>
+          {% if block.settings.link != blank %}
+            <a href="{{ block.settings.link }}" class="hs-marquee-bar__link">{{ block.settings.text }}</a>
+          {% else %}
+            {{ block.settings.text }}
+          {% endif %}
+        </span>
+        <span class="hs-marquee-bar__dot" aria-hidden="true">✦</span>
       {% endfor %}
-    </div>
+    {% endcapture %}
+
+    {% if marquee_content != blank %}
+      {% for i in (1..6) %}
+        <span class="hs-marquee-bar__set" {% unless forloop.first %}aria-hidden="true"{% endunless %}>{{ marquee_content }}</span>
+      {% endfor %}
+    {% else %}
+      {% assign fallback = 'Free delivery on all prepaid orders ✦ Record unboxing video on delivery ✦ Easy exchange within 3 days ✦ ' %}
+      {% for i in (1..6) %}
+        <span class="hs-marquee-bar__set" {% unless forloop.first %}aria-hidden="true"{% endunless %}>{{ fallback }}</span>
+      {% endfor %}
+    {% endif %}
   </div>
-</section>
-
-{% stylesheet %}
-  .hs-marquee-bar {
-    background: var(--hs-marquee-bg, #000);
-    color: var(--hs-marquee-color, #fff);
-    overflow: hidden;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .hs-marquee-bar__viewport {
-    overflow: hidden;
-    width: 100%;
-  }
-
-  .hs-marquee-bar__track {
-    display: flex;
-    width: max-content;
-    animation: hs-marquee-scroll var(--hs-marquee-speed, 28s) linear infinite;
-  }
-
-  .hs-marquee-bar__group {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    padding: 11px 0;
-  }
-
-  .hs-marquee-bar__item {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    padding: 0 20px;
-  }
-
-  .hs-marquee-bar__link {
-    color: inherit;
-    text-decoration: none;
-    transition: opacity 0.2s ease;
-  }
-
-  .hs-marquee-bar__link:hover,
-  .hs-marquee-bar__link:focus-visible {
-    opacity: 0.7;
-  }
-
-  .hs-marquee-bar__sep {
-    opacity: 0.35;
-    font-size: 10px;
-    user-select: none;
-  }
-
-  .hs-marquee-bar__group .hs-marquee-bar__sep:last-child {
-    display: none;
-  }
-
-  @keyframes hs-marquee-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-25%); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hs-marquee-bar__track {
-      animation: none;
-      flex-wrap: wrap;
-      width: 100%;
-      justify-content: center;
-    }
-
-    .hs-marquee-bar__group[aria-hidden="true"] {
-      display: none;
-    }
-  }
-{% endstylesheet %}
+</div>
 
 {% schema %}
 {
@@ -124,10 +56,10 @@
       "type": "range",
       "id": "speed",
       "label": "Scroll speed (seconds)",
-      "min": 15,
-      "max": 60,
+      "min": 18,
+      "max": 50,
       "step": 1,
-      "default": 28
+      "default": 32
     }
   ],
   "blocks": [

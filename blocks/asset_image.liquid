@@ -1,0 +1,24 @@
+{% liquid
+  assign block_settings = block.settings
+  assign image_name = block_settings.fallback_asset
+%}
+
+<div class="marquee-asset-image spacing-style size-style" style="{% render 'size-style', settings: block_settings %}; {% render 'spacing-style', settings: block_settings %}" {{ block.shopify_attributes }}>
+  {% if image_name != blank %}
+    <img src="{{ image_name | asset_url }}" alt="{{ image_name }}" loading="lazy" style="height: 100%; width: 100%; object-fit: contain; max-height: 650px; padding: 0 40px;">
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Asset Image",
+  "settings": [
+    {
+      "type": "text",
+      "id": "fallback_asset",
+      "label": "Asset File Name",
+      "info": "E.g., GUTS FRONt.png"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,82 @@
+<header class="hs-header" data-sticky-header>
+  <div class="hs-header__bar">
+    <div class="hs-header__inner page-width">
+      <div class="hs-header__left">
+        <button
+          type="button"
+          class="hs-header__menu-toggle"
+          aria-label="Open menu"
+          data-hs-menu-toggle
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+
+        <nav class="hs-header__nav" aria-label="Main navigation">
+          {% for link in section.settings.menu.links %}
+            <a
+              href="{{ link.url }}"
+              class="hs-header__nav-link{% if link.current %} is-active{% endif %}"
+              {% if link.current %}aria-current="page"{% endif %}
+            >
+              {{ link.title }}
+            </a>
+          {% endfor %}
+        </nav>
+      </div>
+
+      <a href="{{ routes.root_url }}" class="hs-header__logo" aria-label="{{ shop.name }}">
+        {% if settings.logo != blank %}
+          {{ settings.logo | image_url: width: 400 | image_tag: class: 'hs-header__logo-img', alt: shop.name, loading: 'eager' }}
+        {% else %}
+          <img
+            src="{{ 'Asset 34.png' | asset_url }}"
+            class="hs-header__logo-img"
+            alt="{{ shop.name | escape }}"
+            width="160"
+            height="22"
+            loading="eager"
+          >
+        {% endif %}
+      </a>
+
+      <div class="hs-header__actions">
+        {% render 'search', style: 'modal', display_style: 'icon', class: 'hs-header__search' %}
+        {% render 'header-actions', section: section, display_style: 'icon' %}
+      </div>
+    </div>
+  </div>
+
+  <div class="hs-header__mobile-nav" data-hs-mobile-nav hidden>
+    <nav class="hs-header__mobile-links" aria-label="Mobile navigation">
+      {% for link in section.settings.menu.links %}
+        <a href="{{ link.url }}" class="hs-header__mobile-link">{{ link.title }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</header>
+
+<script src="{{ 'highstare-header.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "HIGHSTARE Header",
+  "tag": "section",
+  "class": "hs-header-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HIGHSTARE Header"
+    }
+  ]
+}
+{% endschema %}

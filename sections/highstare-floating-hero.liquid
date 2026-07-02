@@ -10,6 +10,15 @@
     data-autoplay="{{ section.settings.autoplay_speed | times: 1000 }}"
   >
     <div class="hs-hero__viewport">
+      {% if section.blocks.size > 1 %}
+        <button type="button" class="hs-hero__arrow hs-hero__arrow--prev" data-prev aria-label="Previous slide">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <button type="button" class="hs-hero__arrow hs-hero__arrow--next" data-next aria-label="Next slide">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      {% endif %}
+
       {% for block in section.blocks %}
         {% liquid
           assign image_src = blank
@@ -68,19 +77,8 @@
           </article>
         {% endif %}
       {% endfor %}
-    </div>
 
-    {% if section.blocks.size > 1 %}
-      <div class="hs-hero__controls">
-        <button
-          type="button"
-          class="hs-hero__arrow hs-hero__arrow--prev"
-          data-prev
-          aria-label="Previous slide"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
-        </button>
-
+      {% if section.blocks.size > 1 %}
         <div class="hs-hero__dots" role="tablist" aria-label="Slide navigation">
           {% for block in section.blocks %}
             <button
@@ -93,34 +91,27 @@
             ></button>
           {% endfor %}
         </div>
-
-        <button
-          type="button"
-          class="hs-hero__arrow hs-hero__arrow--next"
-          data-next
-          aria-label="Next slide"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-        </button>
-      </div>
-    {% endif %}
+      {% endif %}
+    </div>
   </highstare-hero-slideshow>
 </section>
 
 {% stylesheet %}
   .hs-hero {
-    background: var(--hs-hero-bg, #fff);
+    background: #ffffff;
     overflow: hidden;
   }
 
   .hs-hero__slideshow {
     display: block;
     width: 100%;
+    position: relative;
   }
 
   .hs-hero__viewport {
     position: relative;
-    min-height: clamp(480px, 78vh, 820px);
+    min-height: clamp(620px, 85vh, 900px);
+    background: var(--hs-hero-bg, transparent);
   }
 
   .hs-hero__slide {
@@ -128,11 +119,12 @@
     inset: 0;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.7s ease, visibility 0.7s ease;
+    transition: opacity 0.55s ease, visibility 0.55s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: clamp(24px, 4vw, 48px) clamp(16px, 4vw, 40px) clamp(72px, 8vh, 96px);
+    padding: 32px 56px 56px;
+    background: transparent;
   }
 
   .hs-hero__slide.is-active {
@@ -142,31 +134,17 @@
   }
 
   .hs-hero__slide-inner {
-    width: min(1100px, 100%);
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(20px, 3vh, 36px);
+    width: min(680px, 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    justify-items: center;
+    gap: 18px;
   }
 
   .hs-hero__media {
     width: 100%;
-    max-width: 520px;
-    animation: hs-hero-float 5s ease-in-out infinite;
-  }
-
-  .hs-hero__slide.is-active .hs-hero__media {
-    animation-play-state: running;
-  }
-
-  .hs-hero__slide:not(.is-active) .hs-hero__media {
-    animation-play-state: paused;
-  }
-
-  @keyframes hs-hero-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+    max-width: 560px;
   }
 
   .hs-hero__media-link {
@@ -177,96 +155,93 @@
   .hs-hero__image {
     width: 100%;
     height: auto;
-    max-height: clamp(320px, 58vh, 580px);
+    max-height: clamp(400px, 65vh, 640px);
     object-fit: contain;
-    object-position: center bottom;
+    object-position: center;
     display: block;
-    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.07));
+    mix-blend-mode: multiply;
   }
 
   .hs-hero__content {
-    max-width: 480px;
+    max-width: 420px;
   }
 
   .hs-hero__eyebrow {
-    margin: 0 0 10px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
+    margin: 0 0 6px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.42);
   }
 
   .hs-hero__title {
-    margin: 0 0 8px;
-    font-size: clamp(22px, 3vw, 32px);
+    margin: 0 0 6px;
+    font-size: clamp(20px, 2.5vw, 28px);
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    line-height: 1.15;
+    line-height: 1.2;
   }
 
   .hs-hero__subtitle {
-    margin: 0 0 20px;
-    font-size: 14px;
-    line-height: 1.5;
-    color: rgba(0, 0, 0, 0.55);
+    margin: 0 0 18px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: rgba(0, 0, 0, 0.5);
   }
 
   .hs-hero__cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 160px;
-    padding: 14px 32px;
+    min-width: 148px;
+    padding: 13px 28px;
     background: #000;
     color: #fff;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     text-decoration: none;
-    transition: background 0.2s ease, transform 0.2s ease;
+    transition: opacity 0.2s ease;
   }
 
   .hs-hero__cta:hover,
   .hs-hero__cta:focus-visible {
-    background: #222;
-    transform: translateY(-1px);
-  }
-
-  .hs-hero__controls {
-    position: absolute;
-    bottom: clamp(20px, 4vh, 36px);
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .hs-hero__slideshow {
-    position: relative;
+    opacity: 0.82;
   }
 
   .hs-hero__arrow {
-    width: 36px;
-    height: 36px;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    position: absolute;
+    top: 42%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    border: none;
     border-radius: 50%;
-    background: #fff;
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     padding: 0;
-    transition: border-color 0.2s ease, background 0.2s ease;
+    opacity: 0.35;
+    transition: opacity 0.2s ease;
+  }
+
+  .hs-hero__arrow--prev { left: clamp(8px, 2vw, 24px); }
+  .hs-hero__arrow--next { right: clamp(8px, 2vw, 24px); }
+
+  .hs-hero__arrow:hover,
+  .hs-hero__arrow:focus-visible {
+    opacity: 1;
   }
 
   .hs-hero__arrow svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     fill: none;
     stroke: #000;
     stroke-width: 1.5;
@@ -274,37 +249,41 @@
     stroke-linejoin: round;
   }
 
-  .hs-hero__arrow:hover,
-  .hs-hero__arrow:focus-visible {
-    border-color: #000;
-    background: #ffffff;
-  }
-
   .hs-hero__dots {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
   }
 
   .hs-hero__dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     border: none;
     padding: 0;
-    background: rgba(0, 0, 0, 0.18);
+    background: rgba(0, 0, 0, 0.15);
     cursor: pointer;
     transition: background 0.25s ease, transform 0.25s ease;
   }
 
   .hs-hero__dot.is-active {
     background: #000;
-    transform: scale(1.15);
+    transform: scale(1.2);
   }
 
   @media (max-width: 749px) {
     .hs-hero__viewport {
-      min-height: clamp(420px, 70vh, 640px);
+      min-height: clamp(540px, 75vh, 720px);
+      padding-bottom: 0;
+    }
+
+    .hs-hero__slide {
+      padding: 24px 20px 52px;
     }
 
     .hs-hero__arrow {
@@ -312,17 +291,13 @@
     }
 
     .hs-hero__image {
-      max-height: clamp(260px, 48vh, 420px);
+      max-height: clamp(320px, 50vh, 480px);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .hs-hero__slide {
       transition: none;
-    }
-
-    .hs-hero__media {
-      animation: none;
     }
   }
 {% endstylesheet %}

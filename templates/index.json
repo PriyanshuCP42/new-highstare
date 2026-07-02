@@ -10,75 +10,52 @@
 {
   "sections": {
     "highstare_floating_hero": {
-      "type": "highstare-floating-hero",
+      "type": "marquee",
       "blocks": {
         "hero_1": {
-          "type": "slide",
+          "type": "asset_image",
           "settings": {
-            "fallback_asset": "product-solo-leveling.png",
-            "eyebrow": "New drop",
-            "title": "Solo Leveling Tee",
-            "subtitle": "Arise. Command. Conquer. Premium oversized fit.",
-            "button_label": "Shop now",
-            "link": "shopify://collections/all"
+            "fallback_asset": "GUTS FRONt.png"
           }
         },
         "hero_2": {
-          "type": "slide",
+          "type": "asset_image",
           "settings": {
-            "fallback_asset": "product-sukuna-front.png",
-            "eyebrow": "Best seller",
-            "title": "Sukuna Tee",
-            "subtitle": "Bold anime graphic on premium waffle-knit fabric.",
-            "button_label": "Shop now",
-            "link": "shopify://collections/all"
+            "fallback_asset": "SUKINA FRONT.png"
           }
         },
         "hero_3": {
-          "type": "slide",
+          "type": "asset_image",
           "settings": {
-            "fallback_asset": "product-humble.png",
-            "eyebrow": "Music culture",
-            "title": "Humble Tee",
-            "subtitle": "Vintage bootleg style. Limited edition streetwear.",
-            "button_label": "Shop now",
-            "link": "shopify://collections/all"
+            "fallback_asset": "HUMBLE FRONt.png"
           }
         },
         "hero_4": {
-          "type": "slide",
+          "type": "asset_image",
           "settings": {
-            "fallback_asset": "product-itachi.png",
-            "eyebrow": "Anime drop",
-            "title": "Itachi Tee",
-            "subtitle": "Dark aesthetic. High-quality print that lasts.",
-            "button_label": "Shop now",
-            "link": "shopify://collections/all"
+            "fallback_asset": "ARISE FRONt.png"
           }
         },
         "hero_5": {
-          "type": "slide",
+          "type": "asset_image",
           "settings": {
-            "fallback_asset": "product-guts.png",
-            "eyebrow": "Limited",
-            "title": "Guts Tee",
-            "subtitle": "Kill or be killed. Berserk-inspired graphic tee.",
-            "button_label": "Shop now",
-            "link": "shopify://collections/all"
+            "fallback_asset": "ITachi.png"
           }
         }
       },
       "block_order": [
         "hero_1",
-        "hero_2",
-        "hero_3",
         "hero_4",
-        "hero_5"
+        "hero_2",
+        "hero_5",
+        "hero_3"
       ],
       "settings": {
-        "background_color": "#ffffff",
-        "autoplay_speed": 5,
-        "accessibility_label": "Featured collection slideshow"
+        "movement_direction": "reverse",
+        "background_color": "transparent",
+        "padding-block-start": 40,
+        "padding-block-end": 40,
+        "gap_between_elements": 0
       }
     },
     "highstare_trust_bar": {
@@ -116,241 +93,18 @@
       ],
       "settings": {}
     },
-    "showcase_new_arrivals": {
-      "type": "highstare-product-showcase",
-      "blocks": {
-        "p1": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-itachi.png",
-            "title": "Itachi Tee",
-            "price": "Rs. 1,699",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        },
-        "p2": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-guts.png",
-            "title": "Guts Tee",
-            "price": "Rs. 1,699",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        },
-        "p3": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-eren-freedom.png",
-            "title": "Freedom Tee",
-            "price": "Rs. 1,749",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        },
-        "p4": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-flashin-lights-front.png",
-            "title": "Flashin Lights Tee",
-            "price": "Rs. 1,699",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        }
-      },
-      "block_order": [
-        "p1",
-        "p2",
-        "p3",
-        "p4"
-      ],
+    "featured_products": {
+      "type": "product-list",
       "settings": {
-        "title": "New arrivals",
-        "view_all_label": "View all",
-        "view_all_link": "shopify://collections/all",
-        "columns": 4
-      }
-    },
-    "showcase_anime": {
-      "type": "highstare-product-showcase",
-      "blocks": {
-        "a1": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-sukuna-alt.png",
-            "title": "Sukuna Collage Tee",
-            "price": "Rs. 1,749",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        },
-        "a2": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-mayhem-back.png",
-            "title": "Mayhem Tee",
-            "price": "Rs. 1,699",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        },
-        "a3": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-sukuna-back.png",
-            "title": "Sukuna Back Print",
-            "price": "Rs. 1,699",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        },
-        "a4": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-solo-leveling.png",
-            "title": "Arise Command Conquer",
-            "price": "Rs. 1,799",
-            "compare_price": "Rs. 2,499",
-            "link": "shopify://collections/all"
-          }
-        }
-      },
-      "block_order": [
-        "a1",
-        "a2",
-        "a3",
-        "a4"
-      ],
-      "settings": {
-        "title": "Anime drops",
-        "view_all_label": "View all",
-        "view_all_link": "shopify://collections/all",
-        "columns": 4
-      }
-    },
-    "showcase_music": {
-      "type": "highstare-product-showcase",
-      "blocks": {
-        "m1": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-donda-back.png",
-            "title": "Donda Tee",
-            "price": "Rs. 1,699",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        },
-        "m2": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-kendrick-back.png",
-            "title": "Humble Kendrick Tee",
-            "price": "Rs. 1,749",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        },
-        "m3": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-weeknd-back.png",
-            "title": "The Weeknd Tour Tee",
-            "price": "Rs. 1,699",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        },
-        "m4": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-earfquake-front.png",
-            "title": "Earfquake Front Tee",
-            "price": "Rs. 1,699",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        }
-      },
-      "block_order": [
-        "m1",
-        "m2",
-        "m3",
-        "m4"
-      ],
-      "settings": {
-        "title": "Music culture",
-        "view_all_label": "View all",
-        "view_all_link": "shopify://collections/all",
-        "columns": 4
-      }
-    },
-    "showcase_hottest": {
-      "type": "highstare-product-showcase",
-      "blocks": {
-        "h1": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-flashin-lights-back.png",
-            "title": "Flashin Lights Back",
-            "price": "Rs. 1,699",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        },
-        "h2": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-kendrick-house-back.png",
-            "title": "TDE Crew Tee",
-            "price": "Rs. 1,749",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        },
-        "h3": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-french-quote-back.png",
-            "title": "Sonder Quote Tee",
-            "price": "Rs. 1,699",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        },
-        "h4": {
-          "type": "product",
-          "settings": {
-            "fallback_asset": "product-flashin-lights-alt.png",
-            "title": "Graduation Era Tee",
-            "price": "Rs. 1,699",
-            "compare_price": "Rs. 2,399",
-            "link": "shopify://collections/all"
-          }
-        }
-      },
-      "block_order": [
-        "h1",
-        "h2",
-        "h3",
-        "h4"
-      ],
-      "settings": {
-        "title": "Hottest picks",
-        "view_all_label": "View all",
-        "view_all_link": "shopify://collections/all",
-        "columns": 4
+        "collection": "all",
+        "columns": 4,
+        "mobile_columns": "2"
       }
     }
   },
   "order": [
     "highstare_floating_hero",
     "highstare_trust_bar",
-    "showcase_new_arrivals",
-    "showcase_anime",
-    "showcase_music",
-    "showcase_hottest"
+    "featured_products"
   ]
 }
