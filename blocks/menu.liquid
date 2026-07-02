@@ -75,7 +75,7 @@
             {% for link in menu.links %}
               <li class="menu__item {{ block_settings.link_preset }}">
                 <a href="{{ link.url }}">
-                  {{ link.title }}{% if link.data_sharing_opt_out_icon %}{{ link.data_sharing_opt_out_icon }}{% endif %}
+                  {% if link.title == 'Catalog' %}Products{% else %}{{ link.title }}{% endif %}{% if link.data_sharing_opt_out_icon %}{{ link.data_sharing_opt_out_icon }}{% endif %}
                 </a>
               </li>
             {% endfor %}
@@ -109,6 +109,32 @@
 
   .menu .menu__heading--empty {
     display: none;
+  }
+
+  /* Premium Hover Effect */
+  .menu__item a {
+    position: relative;
+    display: inline-block;
+    transition: opacity 0.3s ease;
+    text-decoration: none;
+  }
+  .menu__item a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+  }
+  @media screen and (min-width: 750px) {
+    .menu__item a:hover::after {
+      width: 100%;
+    }
+    .menu__item a:hover {
+      opacity: 0.7;
+    }
   }
 
   .menu__heading__default {

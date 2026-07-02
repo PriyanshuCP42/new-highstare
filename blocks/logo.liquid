@@ -64,7 +64,9 @@
       {{ logo_image }}
     </div>
   {% else %}
-    {% render 'jumbo-text', text: shop.name %}
+    <div class="logo-block__image-wrapper">
+      <img src="{{ 'Asset 34.png' | asset_url }}" alt="{{ shop.name }}" class="logo-block__image" width="120" style="width:120px; object-fit:contain;">
+    </div>
   {% endif %}
 </div>
 
