@@ -1,0 +1,121 @@
+<style>
+  .product-description-accordions details {
+    border-bottom: 1px solid rgb(var(--color-border));
+  }
+  
+  .product-description-accordions details:first-child {
+    border-top: 1px solid rgb(var(--color-border));
+  }
+
+  .product-description-accordions summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: var(--font-heading-scale);
+    color: rgb(var(--color-foreground));
+    list-style: none; /* Hide default triangle */
+  }
+
+  .product-description-accordions summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .product-description-accordions summary::after {
+    content: '+';
+    font-size: 20px;
+    font-weight: 400;
+    transition: transform 0.3s ease;
+  }
+
+  .product-description-accordions details[open] summary::after {
+    content: '-';
+    transform: rotate(180deg);
+  }
+
+  .product-description-accordions .accordion-content {
+    padding-bottom: 16px;
+    font-size: var(--font-body-scale);
+    color: rgb(var(--color-foreground), 0.8);
+    animation: accordion-fade-in 0.3s ease-in-out;
+  }
+
+  .product-description-accordions .accordion-content ul {
+    padding-left: 20px;
+    margin: 8px 0;
+  }
+  
+  .product-description-accordions .accordion-content li {
+    margin-bottom: 4px;
+  }
+
+  @keyframes accordion-fade-in {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Find the product description container. In standard Dawn, it's usually inside an RTE or specifically targeted block.
+    // The user's block in product.json is a text block, we will target it by wrapping it or finding its content.
+    const descriptionBlocks = document.querySelectorAll('.product-information__grid .rte');
+    
+    descriptionBlocks.forEach(desc => {
+      // Find all potential headings: h2, h3, or paragraphs starting with strong text
+      let elements = Array.from(desc.children);
+      if (elements.length === 0) return;
+
+      let newHtml = '<div class="product-description-accordions">';
+      let currentSectionHtml = '';
+      let currentTitle = '';
+      let isFirst = true;
+
+      elements.forEach((el, index) => {
+        let isHeader = false;
+        let titleText = '';
+
+        if (el.tagName === 'H2' || el.tagName === 'H3' || el.tagName === 'H4') {
+          isHeader = true;
+          titleText = el.innerText || el.textContent;
+        } else if (el.tagName === 'P' && el.querySelector('strong') && el.textContent.trim() === el.querySelector('strong').textContent.trim()) {
+          // If a paragraph is just bold text, treat it as a header
+          isHeader = true;
+          titleText = el.textContent.trim();
+        }
+
+        if (isHeader) {
+          // If we already have a section open, close it
+          if (!isFirst) {
+            newHtml += `<details><summary>${currentTitle}</summary><div class="accordion-content">${currentSectionHtml}</div></details>`;
+          }
+          currentTitle = titleText;
+          currentSectionHtml = '';
+          isFirst = false;
+        } else {
+          // Append to current section
+          if (isFirst) {
+             // If there's content before any header, just dump it as standard HTML above the accordions
+             newHtml += el.outerHTML;
+          } else {
+             currentSectionHtml += el.outerHTML;
+          }
+        }
+
+        // Close the last section
+        if (index === elements.length - 1 && !isFirst) {
+          newHtml += `<details><summary>${currentTitle}</summary><div class="accordion-content">${currentSectionHtml}</div></details>`;
+        }
+      });
+
+      newHtml += '</div>';
+
+      // Replace if we actually created accordions (i.e. found headers)
+      if (!isFirst) {
+        desc.innerHTML = newHtml;
+      }
+    });
+  });
+</script>

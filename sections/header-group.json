@@ -17,18 +17,21 @@
         "msg_1": {
           "type": "message",
           "settings": {
+            "icon": "shipping",
             "text": "Free delivery on all prepaid orders"
           }
         },
         "msg_2": {
           "type": "message",
           "settings": {
+            "icon": "camera",
             "text": "Record unboxing video on delivery"
           }
         },
         "msg_3": {
           "type": "message",
           "settings": {
+            "icon": "returns",
             "text": "Easy exchange within 3 days"
           }
         }

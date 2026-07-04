@@ -28,10 +28,11 @@
     {% assign style_value = style_value | append: 'object-position: inherit;' %}
   {% endif %}
 
+  {%- assign loading_value = loading | default: 'lazy' -%}
   {{
     image
     | image_url: height: image_height
-    | image_tag: class: class, srcset: image_srcset, style: style_value, alt: image_alt_text
+    | image_tag: class: class, srcset: image_srcset, style: style_value, alt: image_alt_text, loading: loading_value
   }}
 {% elsif text_fallback %}
   {{ text_fallback }}

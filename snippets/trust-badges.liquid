@@ -1,0 +1,142 @@
+<div class="product-trust-badges-wrapper">
+  <p class="trust-badge-title">Guaranteed Safe & Secure Checkout</p>
+  
+  <div class="product-trust-badges">
+    <div class="trust-badge">
+      <div class="trust-badge__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28">
+          <path fill="#2ECA7F" d="M21 16H3V8h13l4 4v4z"/>
+          <path fill="#1A9C5E" d="M16 8v8h5v-4l-4-4h-1z"/>
+          <circle fill="#34495E" cx="6.5" cy="17.5" r="2.5"/>
+          <circle fill="#34495E" cx="16.5" cy="17.5" r="2.5"/>
+          <circle fill="#F1C40F" cx="16.5" cy="17.5" r="1"/>
+          <circle fill="#F1C40F" cx="6.5" cy="17.5" r="1"/>
+        </svg>
+      </div>
+      <span class="trust-badge__text">Free Shipping</span>
+    </div>
+    
+    <div class="trust-badge">
+      <div class="trust-badge__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28">
+          <path fill="#F1C40F" d="M12 2l9 4v6c0 5.5-4 10-9 12-5-2-9-6.5-9-12V6l9-4z"/>
+          <path fill="#F39C12" d="M12 2v20c5-2 9-6.5 9-12V6l-9-4z"/>
+          <path fill="#FFFFFF" d="M10.5 15.5L7 12l1.4-1.4 2.1 2.1 5.1-5.1L17 9l-6.5 6.5z"/>
+        </svg>
+      </div>
+      <span class="trust-badge__text">Secure Checkout</span>
+    </div>
+
+    <div class="trust-badge">
+      <div class="trust-badge__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28">
+          <path fill="#E74C3C" d="M6 10l3 12 3-3 3 3 3-12H6z"/>
+          <circle fill="#F1C40F" cx="12" cy="9" r="7"/>
+          <circle fill="#F39C12" cx="12" cy="9" r="5"/>
+          <path fill="#FFFFFF" d="M12 6.5l1.5 3 3.5.5-2.5 2.5.5 3.5-3-1.5-3 1.5.5-3.5-2.5-2.5 3.5-.5z"/>
+        </svg>
+      </div>
+      <span class="trust-badge__text">100% Quality</span>
+    </div>
+
+    <div class="trust-badge">
+      <div class="trust-badge__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28">
+          <path fill="#9B59B6" d="M12 4V1L7 6l5 5V8c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6H4c0 4.4 3.6 8 8 8s8-3.6 8-8-3.6-8-8-8z"/>
+          <circle fill="#2ECC71" cx="12" cy="14" r="4"/>
+          <path fill="#FFFFFF" d="M11 15.5l-2-2 1-1 1 1 2.5-2.5 1 1-3.5 3.5z"/>
+        </svg>
+      </div>
+      <span class="trust-badge__text">Easy Returns</span>
+    </div>
+  </div>
+
+  <div class="trust-payment-icons">
+    {%- for type in shop.enabled_payment_types -%}
+      {{- type | payment_type_svg_tag: class: 'trust-payment-icon' -}}
+    {%- else -%}
+      {% comment %} Fallback if no payments are configured in dev store {% endcomment %}
+      {{ 'visa' | payment_type_svg_tag: class: 'trust-payment-icon' }}
+      {{ 'master' | payment_type_svg_tag: class: 'trust-payment-icon' }}
+      {{ 'american_express' | payment_type_svg_tag: class: 'trust-payment-icon' }}
+      {{ 'paypal' | payment_type_svg_tag: class: 'trust-payment-icon' }}
+      {{ 'apple_pay' | payment_type_svg_tag: class: 'trust-payment-icon' }}
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+  .product-trust-badges-wrapper {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    padding: 20px;
+    background: rgb(var(--color-background-secondary), 0.5);
+    border-radius: var(--style-border-radius);
+    border: 1px solid rgb(var(--color-border));
+    text-align: center;
+  }
+
+  .trust-badge-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgb(var(--color-foreground));
+    margin-bottom: 16px;
+    margin-top: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .product-trust-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .trust-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex: 1 1 calc(25% - 12px);
+    min-width: 70px;
+    gap: 8px;
+  }
+  
+  .trust-badge__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .trust-badge__text {
+    font-size: 11px;
+    line-height: 1.2;
+    font-weight: 600;
+    color: rgb(var(--color-foreground));
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .trust-payment-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    border-top: 1px solid rgb(var(--color-border));
+    padding-top: 16px;
+  }
+
+  .trust-payment-icon {
+    width: 38px;
+    height: auto;
+  }
+
+  @media screen and (max-width: 749px) {
+    .trust-badge {
+      flex: 1 1 calc(50% - 12px);
+    }
+  }
+</style>
