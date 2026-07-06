@@ -9,7 +9,7 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/Asset_36.png",
+    "logo": "shopify://shop_images/Asset_34.png",
     "logo_height": 41,
     "logo_height_mobile": 27,
     "page_text_color": "{{ settings.color_palette.foreground }}",
