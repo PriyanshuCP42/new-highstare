@@ -25,9 +25,6 @@
       </div>
 
       <a href="{{ routes.root_url }}" class="hs-header__logo" aria-label="{{ shop.name }}">
-        {% if settings.logo != blank %}
-          {{ settings.logo | image_url: width: 400 | image_tag: class: 'hs-header__logo-img', alt: shop.name, loading: 'eager', fetchpriority: 'high' }}
-        {% else %}
           <img
             src="{{ 'Asset 34.png' | asset_url }}"
             class="hs-header__logo-img"
@@ -37,7 +34,6 @@
             loading="eager"
             fetchpriority="high"
           >
-        {% endif %}
       </a>
 
       <div class="hs-header__actions">
