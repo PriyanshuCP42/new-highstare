@@ -11,8 +11,6 @@
   "current": {
     "logo_height": 30,
     "logo_height_mobile": 26,
-    "page_background_color": "#ffffff",
-    "page_width": "normal",
     "page_text_color": "{{ settings.color_palette.foreground }}",
     "type_body_font": "inter_n4",
     "type_subheading_font": "inter_n5",
@@ -44,6 +42,8 @@
     "type_font_h6": "subheading",
     "type_size_h6": "12",
     "type_line_height_h6": "display-loose",
+    "page_background_color": "#ffffff",
+    "page_width": "normal",
     "page_transition_enabled": false,
     "transition_to_main_product": false,
     "card_hover_effect": "none",
@@ -102,6 +102,19 @@
     "variant_button_border_width": 1,
     "variant_button_radius": 8,
     "variant_button_width": "equal-width-buttons",
+    "content_for_index": [],
+    "blocks": {
+      "3557650678667880288": {
+        "type": "shopify://apps/razorpay-cod-magic-checkout/blocks/magicx-script/c13c688d-5c45-4054-b95f-1edd63faa705",
+        "disabled": false,
+        "settings": {}
+      },
+      "17844675666580048712": {
+        "type": "shopify://apps/razorpay-cod-magic-checkout/blocks/sso-script/c13c688d-5c45-4054-b95f-1edd63faa705",
+        "disabled": true,
+        "settings": {}
+      }
+    },
     "color_palette": {
       "background": "#ffffff",
       "foreground": "#000000"
