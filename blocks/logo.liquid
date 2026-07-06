@@ -59,15 +59,9 @@
   "
   {{ block.shopify_attributes }}
 >
-  {% if logo_image %}
-    <div class="logo-block__image-wrapper">
-      {{ logo_image }}
-    </div>
-  {% else %}
     <div class="logo-block__image-wrapper">
       <img src="{{ 'Asset 34.png' | asset_url }}" alt="{{ shop.name }}" class="logo-block__image" width="120" style="width:120px; object-fit:contain;">
     </div>
-  {% endif %}
 </div>
 
 {% stylesheet %}
