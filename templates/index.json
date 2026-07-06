@@ -9,60 +9,6 @@
  */
 {
   "sections": {
-    "highstare_floating_hero": {
-      "type": "marquee",
-      "blocks": {
-        "hero_1": {
-          "type": "asset_image",
-          "settings": {
-            "fallback_asset": "GUTS FRONt.png"
-          },
-          "blocks": {}
-        },
-        "hero_4": {
-          "type": "asset_image",
-          "settings": {
-            "fallback_asset": "ARISE FRONt.png"
-          },
-          "blocks": {}
-        },
-        "hero_2": {
-          "type": "asset_image",
-          "settings": {
-            "fallback_asset": "SUKINA FRONT.png"
-          },
-          "blocks": {}
-        },
-        "hero_5": {
-          "type": "asset_image",
-          "settings": {
-            "fallback_asset": "ITachi.png"
-          },
-          "blocks": {}
-        },
-        "hero_3": {
-          "type": "asset_image",
-          "settings": {
-            "fallback_asset": "HUMBLE FRONt.png"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "hero_1",
-        "hero_4",
-        "hero_2",
-        "hero_5",
-        "hero_3"
-      ],
-      "settings": {
-        "movement_direction": "reverse",
-        "background_color": "rgba(0,0,0,0)",
-        "padding-block-start": 40,
-        "padding-block-end": 40,
-        "gap_between_elements": 0
-      }
-    },
     "highstare_trust_bar": {
       "type": "highstare-trust-bar",
       "blocks": {
@@ -469,6 +415,60 @@
         "background_color": "",
         "padding-block-start": 48,
         "padding-block-end": 48
+      }
+    },
+    "highstare_floating_hero": {
+      "type": "marquee",
+      "blocks": {
+        "hero_1": {
+          "type": "asset_image",
+          "settings": {
+            "fallback_asset": "GUTS FRONt.png"
+          },
+          "blocks": {}
+        },
+        "hero_4": {
+          "type": "asset_image",
+          "settings": {
+            "fallback_asset": "ARISE FRONt.png"
+          },
+          "blocks": {}
+        },
+        "hero_2": {
+          "type": "asset_image",
+          "settings": {
+            "fallback_asset": "SUKINA FRONT.png"
+          },
+          "blocks": {}
+        },
+        "hero_5": {
+          "type": "asset_image",
+          "settings": {
+            "fallback_asset": "ITachi.png"
+          },
+          "blocks": {}
+        },
+        "hero_3": {
+          "type": "asset_image",
+          "settings": {
+            "fallback_asset": "HUMBLE FRONt.png"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "hero_1",
+        "hero_4",
+        "hero_2",
+        "hero_5",
+        "hero_3"
+      ],
+      "settings": {
+        "movement_direction": "reverse",
+        "background_color": "rgba(0,0,0,0)",
+        "padding-block-start": 40,
+        "padding-block-end": 40,
+        "gap_between_elements": 0
       }
     }
   },
