@@ -20,15 +20,18 @@
 
 {% capture accelerated_checkout_button %}
   {% if product != blank %}
-    <input type="hidden" name="return_to" value="/checkout">
-    <button
-      type="submit"
-      name="add"
-      class="shopify-payment-button__button shopify-payment-button__button--unbranded"
-      style="display:block;width:100%;background-color:#000;color:#fff;padding:15px;border-radius:4px;font-weight:bold;cursor:pointer;border:none;font-size:16px;letter-spacing:0.5px;margin-top:10px;"
-    >
-      Buy it now
-    </button>
+    <form action="/cart/add" method="post" style="margin:10px 0 0 0;">
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <input type="hidden" name="quantity" value="1">
+      <input type="hidden" name="return_to" value="/checkout">
+      <button
+        type="submit"
+        class="shopify-payment-button__button shopify-payment-button__button--unbranded"
+        style="display:block;width:100%;background-color:#000;color:#fff;padding:15px;border-radius:4px;font-weight:bold;cursor:pointer;border:none;font-size:16px;letter-spacing:0.5px;"
+      >
+        Buy it now
+      </button>
+    </form>
   {% endif %}
 {% endcapture %}
 
