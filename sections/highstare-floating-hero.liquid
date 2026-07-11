@@ -49,6 +49,7 @@
                   src="{{ image_src }}"
                   alt="{{ image_alt | escape }}"
                   loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                  fetchpriority="{% if forloop.first %}high{% else %}auto{% endif %}"
                   width="1200"
                   height="1400"
                 >
