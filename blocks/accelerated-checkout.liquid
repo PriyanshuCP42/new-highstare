@@ -21,12 +21,45 @@
 {% capture accelerated_checkout_button %}
   {% if product != blank %}
     <a
+      id="hs-buy-now-{{ product.id }}"
       href="/cart/add?id={{ product.selected_or_first_available_variant.id }}&quantity=1&return_to=/checkout"
       class="shopify-payment-button__button shopify-payment-button__button--unbranded"
       style="display:block;width:100%;margin-top:10px;background-color:#000;color:#fff;padding:15px;border-radius:4px;font-weight:bold;cursor:pointer;text-align:center;text-decoration:none;box-sizing:border-box;"
+      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
     >
       Buy it now
     </a>
+    <script>
+      (function() {
+        var ua = navigator.userAgent || '';
+        var isInApp = /Instagram|FBAN|FBAV|FB_IAB|FB4A|FBIOS/i.test(ua);
+        var btn = document.getElementById('hs-buy-now-{{ product.id }}');
+        if (!btn) return;
+        if (!isInApp) {
+          // On normal browsers: let Magic Checkout intercept via form submit
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var form = document.querySelector('[data-type="add-to-cart-form"]');
+            if (form) {
+              // Add return_to so after add-to-cart it goes to checkout
+              var existingInput = form.querySelector('input[name="return_to"]');
+              if (!existingInput) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'return_to';
+                input.value = '/checkout';
+                form.appendChild(input);
+              }
+              // Dispatch submit so Magic Checkout can intercept it
+              form.dispatchEvent(new Event('submit', {bubbles: true, cancelable: true}));
+            } else {
+              window.location.href = btn.href;
+            }
+          });
+        }
+        // On Instagram: the plain href link works directly — no JS needed
+      })();
+    </script>
   {% endif %}
 {% endcapture %}
 
