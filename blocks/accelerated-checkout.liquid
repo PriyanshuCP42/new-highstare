@@ -20,7 +20,17 @@
 
 {% capture accelerated_checkout_button %}
   {% if product != blank and form_obj != blank %}
-    {{ form_obj | payment_button }}
+    <button type="button" class="shopify-payment-button__button shopify-payment-button__button--unbranded" style="display:block;width:100%;margin-top:10px;background-color:#000;color:#fff;padding:15px;border-radius:4px;font-weight:bold;cursor:pointer;" onclick="
+      var form = this.closest('form');
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'return_to';
+      input.value = '/checkout';
+      form.appendChild(input);
+      form.submit();
+    ">
+      Buy it now
+    </button>
   {% endif %}
 {% endcapture %}
 
