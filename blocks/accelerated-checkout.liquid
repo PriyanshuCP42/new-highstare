@@ -20,7 +20,7 @@
 
 {% capture accelerated_checkout_button %}
   {% if product != blank %}
-    <a href="/cart/{{ product.selected_or_first_available_variant.id }}:1?checkout=true"
+    <a href="/cart/{{ product.selected_or_first_available_variant.id }}:1"
        class="shopify-payment-button__button shopify-payment-button__button--unbranded"
        style="display:block;width:100%;background-color:#000;color:#fff;padding:15px;border-radius:4px;font-weight:bold;cursor:pointer;border:none;font-size:16px;letter-spacing:0.5px;text-align:center;text-decoration:none;margin-top:10px;"
     >
