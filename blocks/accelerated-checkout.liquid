@@ -20,47 +20,15 @@
 
 {% capture accelerated_checkout_button %}
   {% if product != blank %}
-    <button type="button" 
-            onclick="hsDirectCheckout(this)"
-            class="shopify-payment-button__button shopify-payment-button__button--unbranded hs-direct-checkout-btn"
+    <button type="submit" 
+            name="add"
+            data-native-submit="true"
+            class="shopify-payment-button__button shopify-payment-button__button--unbranded"
             style="display:block;width:100%;background-color:#000;color:#fff;padding:15px;border-radius:4px;font-weight:bold;cursor:pointer;border:none;font-size:16px;letter-spacing:0.5px;margin-top:10px;">
       Buy it now
     </button>
-    <script>
-      function hsDirectCheckout(btn) {
-        // Prevent multiple clicks
-        if (btn.disabled) return false;
-        
-        btn.innerHTML = 'Loading...';
-        btn.disabled = true;
-        btn.style.opacity = '0.7';
-        
-        try {
-          var form = btn.closest('form');
-          var variantInput = form ? form.querySelector('input[name="id"]') : document.querySelector('input[name="id"]');
-          var variantId = variantInput ? variantInput.value : '{{ product.selected_or_first_available_variant.id }}';
-          var quantityInput = form ? form.querySelector('input[name="quantity"]') : null;
-          var quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
-          
-          fetch('/cart/add.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ items: [{ id: variantId, quantity: quantity }] })
-          })
-          .then(function(response) {
-            // Go to cart instead of checkout directly to avoid Instagram WebView keyboard auto-focus crash
-            window.location.href = '/cart';
-          })
-          .catch(function(error) {
-            console.error('Error:', error);
-            window.location.href = '/cart';
-          });
-        } catch(e) {
-          window.location.href = '/cart';
-        }
-        return false;
-      }
-    </script>
+    <!-- Hidden input to guarantee redirect to cart without JS -->
+    <input type="hidden" name="return_to" value="/cart">
   {% endif %}
 {% endcapture %}
 

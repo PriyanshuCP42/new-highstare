@@ -297,6 +297,9 @@ class ProductFormComponent extends Component {
 
   /** @param {Event} event */
   handleSubmit(event) {
+    if (event.submitter && event.submitter.hasAttribute('data-native-submit')) {
+      return; // allow native form submission
+    }
     event.preventDefault();
 
     if (this.#variantChangeInProgress) {
