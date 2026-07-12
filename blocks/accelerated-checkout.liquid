@@ -21,32 +21,50 @@
 {% capture accelerated_checkout_button %}
   {% if product != blank %}
     <button type="button" 
-            onclick="
-              try {
-                var section = this.closest('.shopify-section');
-                var form = section ? section.querySelector('form[data-type=\'add-to-cart-form\']') : document.querySelector('form[data-type=\'add-to-cart-form\']');
-                if (form) {
-                  // Add a hidden return_to input dynamically if it doesn't exist
-                  if (!form.querySelector('input[name=\'return_to\']')) {
-                    var input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = 'return_to';
-                    input.value = '/cart';
-                    form.appendChild(input);
-                  }
-                  // Native submit bypasses all Javascript event listeners!
-                  form.submit();
-                } else {
-                  window.location.href = '/cart';
-                }
-              } catch(e) {
-                window.location.href = '/cart';
-              }
-            "
-            class="shopify-payment-button__button shopify-payment-button__button--unbranded"
+            onclick="hsDirectCheckoutAbsolute(this)"
+            class="shopify-payment-button__button shopify-payment-button__button--unbranded hs-direct-checkout-btn"
             style="display:block;width:100%;background-color:#000;color:#fff;padding:15px;border-radius:4px;font-weight:bold;cursor:pointer;border:none;font-size:16px;letter-spacing:0.5px;margin-top:10px;">
       Buy it now
     </button>
+    <script>
+      function hsDirectCheckoutAbsolute(btn) {
+        if (btn.disabled) return false;
+        
+        btn.innerHTML = 'Adding to cart...';
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+        
+        try {
+          var form = document.querySelector('form[data-type="add-to-cart-form"]');
+          var variantInput = form ? form.querySelector('input[name="id"]') : null;
+          var variantId = variantInput ? variantInput.value : '{{ product.selected_or_first_available_variant.id }}';
+          
+          var quantityInput = form ? form.querySelector('input[name="quantity"]') : null;
+          var quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
+          
+          fetch(window.Shopify.routes.root + 'cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: [{ id: variantId, quantity: quantity }] })
+          })
+          .then(function(response) {
+            // ALWAYS use absolute URLs for Instagram WebView to prevent navigation blocking
+            var cartUrl = window.location.origin + window.Shopify.routes.root + 'cart';
+            window.location.href = cartUrl;
+          })
+          .catch(function(error) {
+            console.error('Fetch error:', error);
+            var cartUrl = window.location.origin + window.Shopify.routes.root + 'cart';
+            window.location.href = cartUrl;
+          });
+        } catch(e) {
+          console.error('JS error:', e);
+          var cartUrl = window.location.origin + window.Shopify.routes.root + 'cart';
+          window.location.href = cartUrl;
+        }
+        return false;
+      }
+    </script>
   {% endif %}
 {% endcapture %}
 
