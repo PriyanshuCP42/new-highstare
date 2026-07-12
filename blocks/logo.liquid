@@ -10,19 +10,7 @@
 %}
 
 {%- if image -%}
-  {% capture logo_image %}
-    {{-
-      image
-      | image_url: width: 3840
-      | image_tag:
-        width: image.width,
-        widths: '240, 352, 832, 1200, 1600, 1920, 2560, 3840',
-        height: image.height,
-        class: 'logo-block__image',
-        alt: shop.name,
-        sizes: '(min-width: 750px) calc(var(--logo-width)), 100vw'
-    -}}
-  {% endcapture %}
+  <!-- Original dynamic logo capture removed as we use the hardcoded Asset 34.png -->
 {%- endif -%}
 
 <div
