@@ -20,52 +20,34 @@
 
 {% capture accelerated_checkout_button %}
   {% if product != blank %}
-    <button type="button" 
-            onclick="hsDirectCheckoutAbsolute(this)"
-            class="shopify-payment-button__button shopify-payment-button__button--unbranded hs-direct-checkout-btn"
-            style="display:block;width:100%;background-color:#000;color:#fff;padding:15px;border-radius:4px;font-weight:bold;cursor:pointer;border:none;font-size:16px;letter-spacing:0.5px;margin-top:10px;">
+    <a href="/cart/{{ product.selected_or_first_available_variant.id }}:1"
+       id="hs-buy-now-link"
+       class="shopify-payment-button__button shopify-payment-button__button--unbranded hs-direct-checkout-btn"
+       style="display:block;width:100%;background-color:#000;color:#fff;padding:15px;border-radius:4px;font-weight:bold;cursor:pointer;border:none;font-size:16px;letter-spacing:0.5px;text-align:center;text-decoration:none;margin-top:10px;"
+    >
       Buy it now
-    </button>
+    </a>
     <script>
-      function hsDirectCheckoutAbsolute(btn) {
-        if (btn.disabled) return false;
-        
-        btn.innerHTML = 'Adding to cart...';
-        btn.disabled = true;
-        btn.style.opacity = '0.7';
-        
-        try {
-          var form = document.querySelector('form[data-type="add-to-cart-form"]');
-          var variantInput = form ? form.querySelector('input[name="id"]') : null;
-          var variantId = variantInput ? variantInput.value : '{{ product.selected_or_first_available_variant.id }}';
-          
-          var quantityInput = form ? form.querySelector('input[name="quantity"]') : null;
-          var quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
-          
-          var url = window.Shopify.routes.root + 'cart/add.js';
-          var data = JSON.stringify({ items: [{ id: variantId, quantity: quantity }] });
-          
-          // Use SYNCHRONOUS XMLHttpRequest (third parameter is false)
-          // This freezes the main thread until the request completes.
-          // This guarantees that window.location.href executes in the SAME event loop
-          // as the user's physical click, completely bypassing Instagram WebView's
-          // strict async-navigation and popup blockers.
-          var xhr = new XMLHttpRequest();
-          xhr.open('POST', url, false);
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.send(data);
-          
-          // Redirect immediately after synchronous request finishes
-          var cartUrl = window.location.origin + window.Shopify.routes.root + 'cart';
-          window.location.assign(cartUrl);
-          
-        } catch(e) {
-          console.error('JS error:', e);
-          var cartUrl = window.location.origin + window.Shopify.routes.root + 'cart';
-          window.location.assign(cartUrl);
+      // Instantly updates the href of the Buy it now link when a user changes sizes.
+      // We use a pure <a> tag because Instagram WebView on Android crashes on POST-Redirects
+      // and silently blocks Javascript async-navigations. A pure GET hyperlink works 100% of the time.
+      document.addEventListener('change', function(e) {
+        if (e.target.closest('product-info') || e.target.closest('variant-selects') || e.target.closest('variant-radios')) {
+          setTimeout(function() {
+            var form = document.querySelector('form[data-type="add-to-cart-form"]');
+            var variantInput = form ? form.querySelector('input[name="id"]') : null;
+            var quantityInput = form ? form.querySelector('input[name="quantity"]') : null;
+            
+            if (variantInput && variantInput.value) {
+              var btn = document.getElementById('hs-buy-now-link');
+              var qty = quantityInput && quantityInput.value ? parseInt(quantityInput.value) : 1;
+              if (btn) {
+                btn.href = '/cart/' + variantInput.value + ':' + qty;
+              }
+            }
+          }, 50); // Small delay to let the theme update the hidden variant ID input first
         }
-        return false;
-      }
+      });
     </script>
   {% endif %}
 {% endcapture %}
