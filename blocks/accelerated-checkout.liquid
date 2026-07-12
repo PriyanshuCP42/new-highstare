@@ -20,7 +20,57 @@
 
 {% capture accelerated_checkout_button %}
   {% if product != blank and form_obj != blank %}
-    {{ form_obj | payment_button }}
+    <!-- Container for the standard dynamic button (Desktop / Normal Browsers) -->
+    <div id="hs-standard-checkout-{{ block.id }}" style="display: none;">
+      {{ form_obj | payment_button }}
+    </div>
+
+    <!-- Container for the Instagram-safe native button (WebView only) -->
+    <div id="hs-insta-checkout-{{ block.id }}" style="display: none;">
+      <button
+        type="button"
+        id="hs-buy-now-btn-{{ block.id }}"
+        class="shopify-payment-button__button shopify-payment-button__button--unbranded"
+      >
+        Buy it now
+      </button>
+    </div>
+
+    <script>
+      (function() {
+        var ua = navigator.userAgent || navigator.vendor || window.opera;
+        var isInstagram = (ua.indexOf('Instagram') > -1) || (ua.indexOf('FBAN') > -1) || (ua.indexOf('FBAV') > -1);
+        
+        var standardContainer = document.getElementById('hs-standard-checkout-{{ block.id }}');
+        var instaContainer = document.getElementById('hs-insta-checkout-{{ block.id }}');
+        var instaBtn = document.getElementById('hs-buy-now-btn-{{ block.id }}');
+
+        if (isInstagram) {
+          // Show native button on Instagram to bypass Magic Checkout lockup
+          if (instaContainer) instaContainer.style.display = 'block';
+          
+          if (instaBtn) {
+            instaBtn.addEventListener('click', function(e) {
+              e.preventDefault();
+              // Find the closest product form to get the current selected variant ID
+              var form = document.querySelector('form[action*="/cart/add"]');
+              if (form) {
+                var variantInput = form.querySelector('input[name="id"]');
+                var qtyInput = form.querySelector('input[name="quantity"]');
+                var variantId = variantInput ? variantInput.value : '{{ product.selected_or_first_available_variant.id }}';
+                var qty = qtyInput ? qtyInput.value : '1';
+                
+                // Direct browser redirect bypasses all JS/fetch blocks in Instagram
+                window.location.href = '/cart/add?id=' + variantId + '&quantity=' + qty + '&return_to=/checkout';
+              }
+            });
+          }
+        } else {
+          // Show standard Shopify button (which Razorpay hooks into) on normal browsers
+          if (standardContainer) standardContainer.style.display = 'block';
+        }
+      })();
+    </script>
   {% endif %}
 {% endcapture %}
 
