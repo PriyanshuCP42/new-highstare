@@ -42,25 +42,27 @@
           var quantityInput = form ? form.querySelector('input[name="quantity"]') : null;
           var quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
           
-          fetch(window.Shopify.routes.root + 'cart/add.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ items: [{ id: variantId, quantity: quantity }] })
-          })
-          .then(function(response) {
-            // ALWAYS use absolute URLs for Instagram WebView to prevent navigation blocking
-            var cartUrl = window.location.origin + window.Shopify.routes.root + 'cart';
-            window.location.href = cartUrl;
-          })
-          .catch(function(error) {
-            console.error('Fetch error:', error);
-            var cartUrl = window.location.origin + window.Shopify.routes.root + 'cart';
-            window.location.href = cartUrl;
-          });
+          var url = window.Shopify.routes.root + 'cart/add.js';
+          var data = JSON.stringify({ items: [{ id: variantId, quantity: quantity }] });
+          
+          // Use SYNCHRONOUS XMLHttpRequest (third parameter is false)
+          // This freezes the main thread until the request completes.
+          // This guarantees that window.location.href executes in the SAME event loop
+          // as the user's physical click, completely bypassing Instagram WebView's
+          // strict async-navigation and popup blockers.
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', url, false);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.send(data);
+          
+          // Redirect immediately after synchronous request finishes
+          var cartUrl = window.location.origin + window.Shopify.routes.root + 'cart';
+          window.location.assign(cartUrl);
+          
         } catch(e) {
           console.error('JS error:', e);
           var cartUrl = window.location.origin + window.Shopify.routes.root + 'cart';
-          window.location.href = cartUrl;
+          window.location.assign(cartUrl);
         }
         return false;
       }
