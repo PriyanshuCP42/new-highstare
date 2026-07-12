@@ -20,15 +20,16 @@
 
 {% capture accelerated_checkout_button %}
   {% if product != blank %}
-    <button type="submit" 
-            name="add"
-            data-native-submit="true"
-            class="shopify-payment-button__button shopify-payment-button__button--unbranded"
-            style="display:block;width:100%;background-color:#000;color:#fff;padding:15px;border-radius:4px;font-weight:bold;cursor:pointer;border:none;font-size:16px;letter-spacing:0.5px;margin-top:10px;">
-      Buy it now
-    </button>
-    <!-- Hidden input to guarantee redirect to cart without JS -->
-    <input type="hidden" name="return_to" value="/cart">
+    <form action="{{ window.Shopify.routes.root | default: '/' }}cart/add" method="post" id="hs-direct-checkout-form">
+      <input type="hidden" name="id" id="hs-checkout-variant-id" value="{{ product.selected_or_first_available_variant.id }}">
+      <input type="hidden" name="return_to" value="/cart">
+      <button type="submit" 
+              onclick="document.getElementById('hs-checkout-variant-id').value = document.querySelector('product-form-component input[name=\'id\']').value;"
+              class="shopify-payment-button__button shopify-payment-button__button--unbranded"
+              style="display:block;width:100%;background-color:#000;color:#fff;padding:15px;border-radius:4px;font-weight:bold;cursor:pointer;border:none;font-size:16px;letter-spacing:0.5px;margin-top:10px;">
+        Buy it now
+      </button>
+    </form>
   {% endif %}
 {% endcapture %}
 
