@@ -91,7 +91,7 @@
    * @returns {viewTransition is null}
    */
   function shouldSkipViewTransition(viewTransition) {
-    return !(viewTransition instanceof ViewTransition) || isLowPowerDevice() || prefersReducedMotion();
+    return (typeof ViewTransition === 'undefined' || !(viewTransition instanceof ViewTransition)) || isLowPowerDevice() || prefersReducedMotion();
   }
 
   /*
