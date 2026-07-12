@@ -52,8 +52,8 @@
           if (instaBtn) {
             instaBtn.addEventListener('click', function(e) {
               e.preventDefault();
-              // Find the closest product form to get the current selected variant ID
-              var form = document.querySelector('form[action*="/cart/add"]');
+              // Find the EXACT form that this button belongs to
+              var form = instaBtn.closest('form');
               if (form) {
                 var variantInput = form.querySelector('input[name="id"]');
                 var qtyInput = form.querySelector('input[name="quantity"]');
@@ -62,6 +62,8 @@
                 
                 // Direct browser redirect bypasses all JS/fetch blocks in Instagram
                 window.location.href = '/cart/add?id=' + variantId + '&quantity=' + qty + '&return_to=/checkout';
+              } else {
+                 window.location.href = '/cart/add?id={{ product.selected_or_first_available_variant.id }}&quantity=1&return_to=/checkout';
               }
             });
           }
