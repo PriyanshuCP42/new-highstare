@@ -28,25 +28,37 @@
     </button>
     <script>
       function hsDirectCheckout(btn) {
+        // Prevent multiple clicks
+        if (btn.disabled) return false;
+        
         btn.innerHTML = 'Loading...';
         btn.disabled = true;
         btn.style.opacity = '0.7';
         
-        var variantId = document.querySelector('input[name="id"]').value;
-        if (!variantId) variantId = '{{ product.selected_or_first_available_variant.id }}';
-        
-        fetch(window.Shopify.routes.root + 'cart/add.js', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] })
-        })
-        .then(response => {
-          window.location.href = '/checkout';
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          window.location.href = '/checkout';
-        });
+        try {
+          var form = btn.closest('form');
+          var variantInput = form ? form.querySelector('input[name="id"]') : document.querySelector('input[name="id"]');
+          var variantId = variantInput ? variantInput.value : '{{ product.selected_or_first_available_variant.id }}';
+          var quantityInput = form ? form.querySelector('input[name="quantity"]') : null;
+          var quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
+          
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: [{ id: variantId, quantity: quantity }] })
+          })
+          .then(function(response) {
+            // Go to cart instead of checkout directly to avoid Instagram WebView keyboard auto-focus crash
+            window.location.href = '/cart';
+          })
+          .catch(function(error) {
+            console.error('Error:', error);
+            window.location.href = '/cart';
+          });
+        } catch(e) {
+          window.location.href = '/cart';
+        }
+        return false;
       }
     </script>
   {% endif %}
