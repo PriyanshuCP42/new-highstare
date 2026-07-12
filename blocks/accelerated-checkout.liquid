@@ -19,8 +19,36 @@
 %}
 
 {% capture accelerated_checkout_button %}
-  {% if product != blank and form_obj != blank %}
-    {{ form_obj | payment_button }}
+  {% if product != blank %}
+    <button type="button" 
+            onclick="hsDirectCheckout(this)"
+            class="shopify-payment-button__button shopify-payment-button__button--unbranded hs-direct-checkout-btn"
+            style="display:block;width:100%;background-color:#000;color:#fff;padding:15px;border-radius:4px;font-weight:bold;cursor:pointer;border:none;font-size:16px;letter-spacing:0.5px;margin-top:10px;">
+      Buy it now
+    </button>
+    <script>
+      function hsDirectCheckout(btn) {
+        btn.innerHTML = 'Loading...';
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+        
+        var variantId = document.querySelector('input[name="id"]').value;
+        if (!variantId) variantId = '{{ product.selected_or_first_available_variant.id }}';
+        
+        fetch(window.Shopify.routes.root + 'cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] })
+        })
+        .then(response => {
+          window.location.href = '/checkout';
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          window.location.href = '/checkout';
+        });
+      }
+    </script>
   {% endif %}
 {% endcapture %}
 
