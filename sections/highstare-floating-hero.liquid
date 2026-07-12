@@ -49,7 +49,6 @@
                   src="{{ image_src }}"
                   alt="{{ image_alt | escape }}"
                   loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-                  fetchpriority="{% if forloop.first %}high{% else %}auto{% endif %}"
                   width="1200"
                   height="1400"
                 >
@@ -112,6 +111,7 @@
   .hs-hero__viewport {
     position: relative;
     min-height: clamp(620px, 85vh, 900px);
+    min-height: clamp(620px, 85svh, 900px);
     background: var(--hs-hero-bg, transparent);
   }
 
@@ -160,7 +160,6 @@
     object-fit: contain;
     object-position: center;
     display: block;
-    mix-blend-mode: multiply;
   }
 
   .hs-hero__content {
@@ -280,6 +279,7 @@
   @media (max-width: 749px) {
     .hs-hero__viewport {
       min-height: clamp(540px, 75vh, 720px);
+      min-height: clamp(540px, 75svh, 720px);
       padding-bottom: 0;
     }
 

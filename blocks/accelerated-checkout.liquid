@@ -19,36 +19,8 @@
 %}
 
 {% capture accelerated_checkout_button %}
-  {% if product != blank %}
-    <a href="/cart/{{ product.selected_or_first_available_variant.id }}:1"
-       id="hs-buy-now-link"
-       class="shopify-payment-button__button shopify-payment-button__button--unbranded hs-direct-checkout-btn"
-       style="display:block;width:100%;background-color:#000;color:#fff;padding:15px;border-radius:4px;font-weight:bold;cursor:pointer;border:none;font-size:16px;letter-spacing:0.5px;text-align:center;text-decoration:none;margin-top:10px;"
-    >
-      Buy it now
-    </a>
-    <script>
-      // Instantly updates the href of the Buy it now link when a user changes sizes.
-      // We use a pure <a> tag because Instagram WebView on Android crashes on POST-Redirects
-      // and silently blocks Javascript async-navigations. A pure GET hyperlink works 100% of the time.
-      document.addEventListener('change', function(e) {
-        if (e.target.closest('product-info') || e.target.closest('variant-selects') || e.target.closest('variant-radios')) {
-          setTimeout(function() {
-            var form = document.querySelector('form[data-type="add-to-cart-form"]');
-            var variantInput = form ? form.querySelector('input[name="id"]') : null;
-            var quantityInput = form ? form.querySelector('input[name="quantity"]') : null;
-            
-            if (variantInput && variantInput.value) {
-              var btn = document.getElementById('hs-buy-now-link');
-              var qty = quantityInput && quantityInput.value ? parseInt(quantityInput.value) : 1;
-              if (btn) {
-                btn.href = '/cart/' + variantInput.value + ':' + qty;
-              }
-            }
-          }, 50); // Small delay to let the theme update the hidden variant ID input first
-        }
-      });
-    </script>
+  {% if product != blank and form_obj != blank %}
+    {{ form_obj | payment_button }}
   {% endif %}
 {% endcapture %}
 

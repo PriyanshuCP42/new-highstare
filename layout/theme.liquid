@@ -16,12 +16,22 @@
 
     {% comment %} This a way to wait for main content to load when navigating to a new page so that the view transitions can work consistently {% endcomment %}
     {% if settings.transition_to_main_product or settings.page_transition_enabled %}
-      <link
-        rel="expect"
-        href="#MainContent"
-        blocking="render"
-        id="view-transition-render-blocker"
-      >
+      <script>
+        // Only inject render-blocking expect link if the browser supports it.
+        // Instagram/Facebook in-app WebViews crash on unsupported blocking="render".
+        (function() {
+          try {
+            var link = document.createElement('link');
+            if ('blocking' in link) {
+              link.rel = 'expect';
+              link.href = '#MainContent';
+              link.setAttribute('blocking', 'render');
+              link.id = 'view-transition-render-blocker';
+              document.head.appendChild(link);
+            }
+          } catch(e) {}
+        })();
+      </script>
     {% endif %}
 
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
@@ -47,26 +57,6 @@
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
 
     {% render 'chat-drawer' %}
-
-    <!-- Instagram/Facebook WebView Banner -->
-    <div id="hs-webview-banner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:99999;background:#111;color:#fff;text-align:center;padding:12px 16px;font-family:sans-serif;font-size:14px;line-height:1.4;">
-      <strong>For the best experience, open this page in your browser.</strong><br>
-      <span style="font-size:12px;opacity:0.8;">Tap the ⋮ menu (top right) → "Open in Chrome" or "Open in Safari"</span>
-    </div>
-    <script>
-      (function() {
-        var ua = navigator.userAgent || '';
-        var isInAppBrowser = /Instagram|FBAN|FBAV|FB_IAB|FB4A|FBIOS|Twitter|Line\/|MicroMessenger/i.test(ua);
-        if (isInAppBrowser) {
-          var banner = document.getElementById('hs-webview-banner');
-          if (banner) {
-            banner.style.display = 'block';
-            // Push page content down so banner doesn't cover nav
-            document.body.style.paddingTop = (banner.offsetHeight + 8) + 'px';
-          }
-        }
-      })();
-    </script>
 
     <div class="page-wrapper">
       <div id="header-group">

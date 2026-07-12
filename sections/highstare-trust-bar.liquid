@@ -8,7 +8,7 @@
         class="highstare-trust-bar__item"
         {{ block.shopify_attributes }}
         {% if block.settings.modal_text != blank %}
-          onclick="this.nextElementSibling.showModal()"
+          onclick="try{this.nextElementSibling.showModal()}catch(e){}"
         {% endif %}
       >
         {% case block.settings.icon %}
