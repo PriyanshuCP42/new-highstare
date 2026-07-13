@@ -150,7 +150,14 @@ export class ProductCard extends ProductCardLink {
       window.open(url.href, '_blank');
       return;
     } else {
-      window.location.href = url.href;
+      // WebView Fix: Instead of window.location.href, simulate a native click on the anchor.
+      // Programmatic assignment of location.href can freeze Instagram WebView.
+      const anchor = this.refs.productCardLink;
+      if (anchor) {
+        anchor.click();
+      } else {
+        window.location.href = url.href;
+      }
     }
   };
 
