@@ -176,6 +176,8 @@ select {
   position: absolute;
   inset: 0;
   z-index: 2;
+  /* Fix for iOS WebKit (Insta) ignoring taps on empty absolute overlays */
+  background-color: rgba(255, 255, 255, 0.001);
 }
 
 .product-card__content {
