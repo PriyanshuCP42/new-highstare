@@ -175,10 +175,22 @@ select {
 .product-card__link {
   position: absolute;
   inset: 0;
+  z-index: 2;
 }
 
 .product-card__content {
   position: relative;
+  z-index: 1;
+}
+
+.product-card__content button,
+.product-card__content input,
+.product-card__content select,
+.product-card__content label,
+.product-card__content .quick-add,
+.product-card__content variant-picker {
+  position: relative;
+  z-index: 3;
 }
 
 .product-card__content {
