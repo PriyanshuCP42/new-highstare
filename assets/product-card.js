@@ -135,25 +135,6 @@ export class ProductCard extends ProductCardLink {
     this.refs.quickAdd?.fetchProductPage(this.productPageUrl);
   };
 
-  /**
-   * Navigates to a URL link. Respects modifier keys for opening in new tab/window.
-   * @param {Event} event - The event that triggered the navigation.
-   * @param {URL} url - The URL to navigate to.
-   */
-  #navigateToURL = (event, url) => {
-    // Check for modifier keys that should open in new tab/window (only for mouse events)
-    const shouldOpenInNewTab =
-      event instanceof MouseEvent && (event.metaKey || event.ctrlKey || event.shiftKey || event.button === 1);
-
-    if (shouldOpenInNewTab) {
-      event.preventDefault();
-      window.open(url.href, '_blank');
-      return;
-    } else {
-      window.location.assign(url.href);
-    }
-  };
-
   connectedCallback() {
     super.connectedCallback();
 
@@ -165,7 +146,8 @@ export class ProductCard extends ProductCardLink {
     this.addEventListener(SlideshowSelectEvent.eventName, this.#handleSlideshowSelect);
     mediaQueryLarge.addEventListener('change', this.#handleQuickAdd);
 
-    this.addEventListener('click', this.navigateToProduct);
+    // Removed manual JS click interception to rely entirely on native anchor clicks.
+    // This prevents double-navigation deadlocks in Instagram WebView.
 
     // Preload the next image on the slideshow to avoid white flashes on previewImage
     setTimeout(() => {
@@ -177,7 +159,7 @@ export class ProductCard extends ProductCardLink {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener('click', this.navigateToProduct);
+    // Removed click listener cleanup since it's no longer bound
   }
 
   #preloadNextPreviewImage() {
@@ -460,60 +442,6 @@ export class ProductCard extends ProductCardLink {
 
     // No valid initial slide or selected variant - go to previous
     slideshow.previous(undefined, { animate: false });
-  };
-
-  /**
-   * Intercepts the click event on the product card anchor, we want
-   * to use this to add an intermediate state to the history.
-   * This intermediate state captures the page we were on so that we
-   * navigate back to the same page when the user navigates back.
-   * In addition to that, it captures the product card anchor so that we
-   * have the specific product card in view.
-   *
-   * A product card can have other interactive elements like variant picker,
-   * so we do not navigate if the click was on one of those elements.
-   *
-   * @param {Event} event
-   */
-  navigateToProduct = (event) => {
-    if (!(event.target instanceof Element)) return;
-
-    // Don't navigate if this product card is marked as no-navigation (e.g., in theme editor)
-    if (this.hasAttribute('data-no-navigation')) return;
-
-    const interactiveElement = event.target.closest('button, input, label, select, [tabindex="1"]');
-
-    // If the click was on an interactive element, do nothing.
-    if (interactiveElement) {
-      return;
-    }
-
-    const link = this.refs.productCardLink;
-    if (!link.href) return;
-    const linkURL = new URL(link.href);
-
-    const productCardAnchor = link.getAttribute('id');
-    if (!productCardAnchor) return;
-
-    const infiniteResultsList = this.closest('results-list[infinite-scroll="true"]');
-    if (!window.Shopify.designMode && infiniteResultsList) {
-      const url = new URL(window.location.href);
-      const parent = this.closest('li');
-      url.hash = productCardAnchor;
-      if (parent && parent.dataset.page) {
-        url.searchParams.set('page', parent.dataset.page);
-      }
-
-      yieldToMainThread().then(() => {
-        history.replaceState({}, '', url.toString());
-      });
-    }
-
-    const targetLink = event.target.closest('a');
-    // Let the native navigation handle the click if it was on a link.
-    if (!targetLink) {
-      this.#navigateToURL(event, linkURL);
-    }
   };
 
   /**
