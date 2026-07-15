@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "names": {
     "404": "404",
@@ -395,7 +404,7 @@
     "padding_bottom": "Espacement inférieur",
     "padding_horizontal": "Espacement horizontal",
     "padding_top": "Espacement supérieur",
-    "page_width": "Largeur de la page",
+    "layout_page_width": "Largeur de la page",
     "pagination": "Pagination",
     "placement": "Emplacement",
     "position": "Position",

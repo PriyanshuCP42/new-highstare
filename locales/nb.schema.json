@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "names": {
     "404": "404",
@@ -401,7 +410,7 @@
     "padding_bottom": "Utfylling nederst",
     "padding_horizontal": "Vannrett utfylling",
     "padding_top": "Utfylling øverst",
-    "page_width": "Sidebredde",
+    "layout_page_width": "Sidebredde",
     "pagination": "Sideinndeling",
     "percent_height": "Høyde i prosent",
     "percent_size_mobile": "Størrelse i prosent",

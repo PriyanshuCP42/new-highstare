@@ -1015,7 +1015,7 @@
     "page_background_color": "Background",
     "page_text_color": "Text",
     "page_transition_enabled": "Page transition",
-    "page_width": "Page width",
+    "layout_page_width": "Page width",
     "pagination": "Pagination",
     "percent_height": "Percent height",
     "percent_size": "Percent size",
