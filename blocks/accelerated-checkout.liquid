@@ -54,17 +54,35 @@
               e.preventDefault();
               // Find the EXACT form that this button belongs to
               var form = instaBtn.closest('form');
+              var variantId = '{{ product.selected_or_first_available_variant.id }}';
+              var qty = '1';
+              
               if (form) {
                 var variantInput = form.querySelector('input[name="id"]');
                 var qtyInput = form.querySelector('input[name="quantity"]');
-                var variantId = variantInput ? variantInput.value : '{{ product.selected_or_first_available_variant.id }}';
-                var qty = qtyInput ? qtyInput.value : '1';
-                
-                // Direct browser redirect bypasses all JS/fetch blocks in Instagram
-                window.location.href = '/cart/add?id=' + variantId + '&quantity=' + qty + '&return_to=/checkout';
-              } else {
-                 window.location.href = '/cart/add?id={{ product.selected_or_first_available_variant.id }}&quantity=1&return_to=/checkout';
+                if (variantInput) variantId = variantInput.value;
+                if (qtyInput) qty = qtyInput.value;
               }
+              
+              // Direct POST form submit bypasses all JS/fetch blocks in Instagram
+              var submitForm = document.createElement('form');
+              submitForm.method = 'POST';
+              submitForm.action = '/cart/add';
+              
+              var idInput = document.createElement('input');
+              idInput.type = 'hidden'; idInput.name = 'id'; idInput.value = variantId;
+              
+              var qtyInputNode = document.createElement('input');
+              qtyInputNode.type = 'hidden'; qtyInputNode.name = 'quantity'; qtyInputNode.value = qty;
+              
+              var returnInput = document.createElement('input');
+              returnInput.type = 'hidden'; returnInput.name = 'return_to'; returnInput.value = '/checkout';
+              
+              submitForm.appendChild(idInput);
+              submitForm.appendChild(qtyInputNode);
+              submitForm.appendChild(returnInput);
+              document.body.appendChild(submitForm);
+              submitForm.submit();
             });
           }
         } else {
