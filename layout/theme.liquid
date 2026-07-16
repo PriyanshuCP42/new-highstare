@@ -6,6 +6,34 @@
   lang="{{ request.locale.iso_code }}"
 >
   <head>
+    <script>
+      // Instagram WebView Storage Polyfill to prevent fatal crashes
+      (function() {
+        function createMockStorage() {
+          var storage = {};
+          return {
+            setItem: function(key, value) { storage[key] = value || ''; },
+            getItem: function(key) { return key in storage ? storage[key] : null; },
+            removeItem: function(key) { delete storage[key]; },
+            get length() { return Object.keys(storage).length; },
+            key: function(i) { return Object.keys(storage)[i] || null; },
+            clear: function() { storage = {}; }
+          };
+        }
+        try {
+          localStorage.setItem('__test', '1');
+          localStorage.removeItem('__test');
+        } catch (e) {
+          Object.defineProperty(window, 'localStorage', { value: createMockStorage(), writable: true });
+        }
+        try {
+          sessionStorage.setItem('__test', '1');
+          sessionStorage.removeItem('__test');
+        } catch (e) {
+          Object.defineProperty(window, 'sessionStorage', { value: createMockStorage(), writable: true });
+        }
+      })();
+    </script>
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
